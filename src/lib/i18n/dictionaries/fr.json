@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "title": "Marbrerie Tunis Carthage - L'Élégance Intemporelle",
+    "description": "Experts en marbre de luxe, de la carrière à votre intérieur. Découvrez nos collections d'exception et notre configurateur 3D."
+  },
+  "loading": {
+    "text": "Chargement de l'excellence..."
+  },
+  "nav": {
+    "accueil": "Accueil",
+    "apropos": "À Propos",
+    "usine": "Usine",
+    "produits": "Produits",
+    "configurateur": "Configurateur 3D",
+    "projets": "Projets",
+    "devis": "Devis",
+    "contact": "Contact",
+    "catalogue": "Catalogue",
+    "since": "Since {year}",
+    "menuOpen": "Ouvrir le menu",
+    "menuClose": "Fermer le menu"
+  },
+  "hero": {
+    "title": "L'Élégance Intemporelle du Marbre",
+    "subtitle": "De la carrière à votre intérieur, nous transformons la pierre en œuvres d'art. Depuis 1989, Marbrerie Tunis Carthage allie savoir-faire artisanal et innovation pour sublimer vos espaces.",
+    "cta": "Découvrir nos produits"
+  },
+  "video": {
+    "title": "Notre Savoir-Faire en Mouvement",
+    "description": "Plongez au cœur de notre processus de création. De l'extraction à la finition, chaque étape est réalisée avec une précision et une passion qui garantissent un produit d'exception. Cette vidéo illustre notre engagement envers la qualité et l'artisanat tunisien.",
+    "mute": "Couper le son",
+    "unmute": "Activer le son"
+  },
+  "usine": {
+    "title": "Notre Usine",
+    "description": "Découvrez nos ateliers de transformation du marbre, où tradition artisanale et technologies modernes se rencontrent. Chaque pierre est taillée, polie et finie avec un savoir-faire transmis depuis 1989.",
+    "cta": "Notre Usine"
+  },
+  "products": {
+    "title": "Nos Produits d'Exception",
+    "description": "Explorez notre collection de marbres, disponibles dans une variété de couleurs et de finitions pour sublimer tous vos projets, des plus classiques aux plus audacieux.",
+    "viewAll": "Voir tous les produits",
+    "modalTitle": "Notre Collection",
+    "modalSubtitle": "Découvrez nos marbres d'exception",
+    "finishLabel": "Finition:",
+    "items": {
+      "marbre-blanc-carrare": "Marbre Blanc Carrare",
+      "marbre-noir-marquina": "Marbre Noir Marquina",
+      "travertin-beige": "Travertin Beige",
+      "granit-rouge-imperial": "Granit Rouge Impérial",
+      "marbre-emeraude": "Marbre Émeraude",
+      "onyx-honey": "Onyx Honey"
+    }
+  },
+  "configurator": {
+    "title": "Visualisez Votre Projet",
+    "description": "Utilisez notre configurateur 3D interactif pour tester nos marbres dans votre propre espace. Donnez vie à vos idées et choisissez la finition parfaite avant même de commencer.",
+    "cta": "Lancer l'outil 3D",
+    "popup": {
+      "title": "Choisissez votre espace à visualiser",
+      "rooms": {
+        "kitchen": "Cuisine",
+        "bathroom": "Salle de Bain",
+        "livingRoom": "Salon",
+        "table": "Table"
+      },
+      "imageAlt": "Image placeholder — {room}",
+      "selectedMessage": "Vous avez choisi : {room} — la suite de l'outil sera bientôt disponible",
+      "back": "Retour"
+    }
+  },
+  "projets": {
+    "title": "Nos Projets",
+    "description": "Découvrez une sélection de nos réalisations : villas, hôtels, bureaux et espaces publics sublimés par le marbre tunisien. Chaque projet témoigne de notre savoir-faire et de notre engagement envers l'excellence.",
+    "cta": "Voir tous les projets"
+  },
+  "trusted": {
+    "title": "Ils nous ont fait confiance",
+    "description": "Un réseau de clients diversifiés et prestigieux à travers le monde."
+  },
+  "footer": {
+    "tagline": "L'excellence du marbre tunisien depuis 1989",
+    "blurb": "Fondée en 1989, Marbrerie Tunis Carthage est un leader de la transformation du marbre en Tunisie. Notre passion pour la pierre et notre engagement envers la qualité nous distinguent.",
+    "usefulLinks": "Liens utiles",
+    "contactUs": "Contactez-nous",
+    "copyright": "© {year} Marble Tunis Carthage. Tous droits réservés."
+  },
+  "social": {
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "youtube": "YouTube",
+    "linkedin": "LinkedIn",
+    "whatsapp": "WhatsApp",
+    "backToTop": "Retour en haut"
+  },
+  "comingSoon": {
+    "title": "Bientôt disponible",
+    "description": "Cette page est en cours de construction. Revenez très bientôt.",
+    "backHome": "Retour à l'accueil"
+  },
+  "devis": {
+    "meta": {
+      "title": "Demande de devis | Marbrerie Tunis Carthage",
+      "description": "Demandez un devis personnalisé pour votre projet en marbre, granit ou travertin. Notre équipe vous répond rapidement."
+    },
+    "pageTitle": "Demande de devis",
+    "pageIntro": "Décrivez votre projet et nous vous recontactons avec une proposition sur mesure. Tous les champs marqués sont obligatoires, sauf la pièce jointe.",
+    "fields": {
+      "nom": "Nom",
+      "prenom": "Prénom",
+      "email": "Adresse e-mail",
+      "telephone": "Numéro de téléphone",
+      "productType": "Type de produit",
+      "dimensions": "Dimensions",
+      "file": "Fichier joint (optionnel)",
+      "fileHint": "PDF, JPG ou PNG — 10 Mo maximum"
+    },
+    "placeholders": {
+      "telephone": "+216 XX XXX XXX",
+      "productType": "Sélectionnez un type",
+      "dimensions": "Ex. 2 m × 1,5 m"
+    },
+    "productTypes": {
+      "marbre": "Marbre",
+      "granit": "Granit",
+      "travertin": "Travertin",
+      "autre": "Autre"
+    },
+    "validation": {
+      "nomRequired": "Le nom est obligatoire.",
+      "prenomRequired": "Le prénom est obligatoire.",
+      "emailInvalid": "Veuillez saisir une adresse e-mail valide.",
+      "telephoneRequired": "Le numéro de téléphone est obligatoire.",
+      "telephoneInvalid": "Format attendu : 8 chiffres, avec ou sans +216.",
+      "productTypeRequired": "Veuillez choisir un type de produit.",
+      "dimensionsRequired": "Les dimensions sont obligatoires.",
+      "fileTooLarge": "Le fichier ne doit pas dépasser 10 Mo.",
+      "fileTypeInvalid": "Formats acceptés : PDF, JPG, JPEG ou PNG."
+    },
+    "submit": "Envoyer la demande",
+    "submitting": "Envoi en cours…",
+    "fileRemove": "Retirer",
+    "honeypotLabel": "Ne pas remplir",
+    "success": {
+      "title": "Demande envoyée",
+      "message": "Merci pour votre confiance. Nous avons bien reçu votre demande de devis.",
+      "confirmationNote": "Un e-mail de confirmation vous a été envoyé à l'adresse indiquée."
+    },
+    "error": {
+      "title": "L'envoi n'a pas abouti",
+      "retry": "Réessayer",
+      "fallback": "Vous pouvez aussi nous joindre directement :",
+      "codes": {
+        "validation": "Certaines informations semblent incorrectes. Vérifiez le formulaire et réessayez.",
+        "file": "Le fichier joint n'est pas valide.",
+        "upload": "Le téléversement du fichier a échoué. Réessayez ou envoyez sans pièce jointe.",
+        "email": "L'envoi des e-mails a échoué. Veuillez réessayer dans quelques instants.",
+        "config": "Le service est temporairement indisponible. Contactez-nous par téléphone ou WhatsApp."
+      }
+    },
+    "emailUsine": {
+      "subject": "Nouvelle demande de devis — {name}",
+      "heading": "Nouvelle demande de devis",
+      "nom": "Nom",
+      "prenom": "Prénom",
+      "email": "E-mail",
+      "telephone": "Téléphone",
+      "productType": "Type de produit",
+      "dimensions": "Dimensions",
+      "fileLink": "Fichier joint :",
+      "noFile": "Aucun fichier joint.",
+      "productTypes": {
+        "marbre": "Marbre",
+        "granit": "Granit",
+        "travertin": "Travertin",
+        "autre": "Autre"
+      }
+    },
+    "emailConfirm": {
+      "subject": "Confirmation de votre demande de devis",
+      "greeting": "Bonjour {name},",
+      "body": "Nous avons bien reçu votre demande de devis. Notre équipe l'examine et vous recontactera dans les meilleurs délais.",
+      "fallback": "Pour toute urgence, vous pouvez nous joindre au :",
+      "whatsapp": "Nous écrire sur WhatsApp"
+    }
+  }
+}

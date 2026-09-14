@@ -1,0 +1,39 @@
+import { setRequestLocale } from "next-intl/server";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import FadeInSection from "@/components/common/FadeInSection";
+import DevisForm from "@/components/devis/DevisForm";
+
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "devis.meta" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
+
+export default async function DevisPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("devis");
+
+  return (
+    <section className="bg-brand-light px-4 py-16 md:py-24">
+      <div className="mx-auto max-w-3xl">
+        <FadeInSection>
+          <header className="mb-10 text-center md:mb-12">
+            <h1 className="font-display text-4xl font-bold text-brand-dark md:text-5xl">
+              {t("pageTitle")}
+            </h1>
+            <p className="mx-auto mt-4 max-w-xl text-lg text-text-muted">{t("pageIntro")}</p>
+          </header>
+          <DevisForm locale={locale} />
+        </FadeInSection>
+      </div>
+    </section>
+  );
+}
