@@ -1,14 +1,15 @@
 import { z } from "zod";
-import {
-  PRODUCT_TYPE_VALUES,
-  type ProductTypeValue,
-} from "@/data/productTypes";
+import { PRODUCT_TYPE_VALUES } from "@/data/productTypes";
 
 const phoneRegex = /^(\+216[\s-]?)?[2-9]\d{7}$/;
 
 export function normalizePhone(value: string): string {
   return value.replace(/\s/g, "");
 }
+
+export const productTypeSchema = z.enum(PRODUCT_TYPE_VALUES, {
+  message: "productTypeRequired",
+});
 
 export const devisFormSchema = z.object({
   nom: z.string().trim().min(1, { message: "nomRequired" }),
@@ -22,18 +23,16 @@ export const devisFormSchema = z.object({
       message: "telephoneInvalid",
     }),
   productType: z
-    .string()
-    .min(1, { message: "productTypeRequired" })
-    .refine(
-      (value): value is ProductTypeValue =>
-        (PRODUCT_TYPE_VALUES as readonly string[]).includes(value),
-      { message: "productTypeRequired" },
-    ),
+    .enum(PRODUCT_TYPE_VALUES)
+    .optional()
+    .pipe(productTypeSchema),
   dimensions: z.string().trim().min(1, { message: "dimensionsRequired" }),
   honeypot: z.string().optional(),
 });
 
 export type DevisFormValues = z.infer<typeof devisFormSchema>;
+
+export type DevisFormInput = z.input<typeof devisFormSchema>;
 
 export const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
 
@@ -66,14 +65,17 @@ export function validateDevisFile(
   return { ok: true };
 }
 
-export function parseDevisFormData(formData: FormData): DevisFormValues {
+export function parseDevisFormData(formData: FormData): DevisFormInput {
   const honeypot = formData.get("website");
+  const rawProductType = formData.get("productType");
+  const parsedProductType = productTypeSchema.safeParse(rawProductType);
+
   return {
     nom: String(formData.get("nom") ?? ""),
     prenom: String(formData.get("prenom") ?? ""),
     email: String(formData.get("email") ?? ""),
     telephone: String(formData.get("telephone") ?? ""),
-    productType: String(formData.get("productType") ?? ""),
+    productType: parsedProductType.success ? parsedProductType.data : undefined,
     dimensions: String(formData.get("dimensions") ?? ""),
     honeypot: honeypot != null ? String(honeypot) : undefined,
   };

@@ -4,30 +4,29 @@ import { useCallback, useRef, useState, type ChangeEvent, type ReactNode } from 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { PRODUCT_TYPES } from "@/data/productTypes";
 import { siteConfig, getWhatsAppUrl } from "@/data/siteConfig";
 import {
-  devisFormSchema,
-  validateDevisFile,
-  type DevisFormValues,
-  type DevisFormInput,
+  contactFormSchema,
+  validateContactFile,
+  type ContactFormValues,
+  type ContactFormInput,
   ACCEPTED_FILE_EXTENSIONS,
-} from "@/lib/validations/devisSchema";
+} from "@/lib/validations/contactSchema";
 import {
-  submitDevisFromClient,
-  type SubmitDevisState,
-} from "@/app/actions/submitDevis";
+  submitContactMessageFromClient,
+  type SubmitContactState,
+} from "@/app/actions/submitContactMessage";
 
-type DevisFormProps = {
+type ContactFormProps = {
   locale: string;
 };
 
-export default function DevisForm({ locale }: DevisFormProps) {
-  const t = useTranslations("devis");
+export default function ContactForm({ locale }: ContactFormProps) {
+  const t = useTranslations("contact");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [fileErrorKey, setFileErrorKey] = useState<string | null>(null);
-  const [submitState, setSubmitState] = useState<SubmitDevisState>({
+  const [submitState, setSubmitState] = useState<SubmitContactState>({
     status: "idle",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,15 +36,12 @@ export default function DevisForm({ locale }: DevisFormProps) {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<DevisFormInput, unknown, DevisFormValues>({
-    resolver: zodResolver(devisFormSchema),
+  } = useForm<ContactFormInput, unknown, ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      nom: "",
-      prenom: "",
+      name: "",
       email: "",
-      telephone: "",
-      productType: undefined,
-      dimensions: "",
+      message: "",
       honeypot: "",
     },
   });
@@ -69,7 +65,7 @@ export default function DevisForm({ locale }: DevisFormProps) {
       clearFile();
       return;
     }
-    const result = validateDevisFile(file);
+    const result = validateContactFile(file);
     if (!result.ok) {
       setFileErrorKey(result.message);
       setSelectedFile(null);
@@ -82,13 +78,13 @@ export default function DevisForm({ locale }: DevisFormProps) {
     setSelectedFile(file);
   };
 
-  const onSubmit = async (values: DevisFormValues) => {
+  const onSubmit = async (values: ContactFormValues) => {
     if (values.honeypot?.trim()) {
       setSubmitState({ status: "success" });
       return;
     }
 
-    const fileCheck = validateDevisFile(selectedFile);
+    const fileCheck = validateContactFile(selectedFile);
     if (!fileCheck.ok) {
       setFileErrorKey(fileCheck.message);
       return;
@@ -99,19 +95,16 @@ export default function DevisForm({ locale }: DevisFormProps) {
 
     const formData = new FormData();
     formData.set("locale", locale);
-    formData.set("nom", values.nom);
-    formData.set("prenom", values.prenom);
+    formData.set("name", values.name);
     formData.set("email", values.email);
-    formData.set("telephone", values.telephone);
-    formData.set("productType", values.productType);
-    formData.set("dimensions", values.dimensions);
+    formData.set("message", values.message);
     formData.set("website", values.honeypot ?? "");
     if (selectedFile) {
       formData.set("fichier", selectedFile);
     }
 
     try {
-      const result = await submitDevisFromClient(formData);
+      const result = await submitContactMessageFromClient(formData);
       setSubmitState(result);
       if (result.status === "success") {
         reset();
@@ -160,6 +153,15 @@ export default function DevisForm({ locale }: DevisFormProps) {
 
   return (
     <div className="rounded-2xl border border-brand-dark/10 bg-white p-6 shadow-sm md:p-10">
+      <header className="mb-8">
+        <h2 className="font-display text-2xl font-bold text-brand-dark md:text-3xl">
+          {t("formTitle")}
+        </h2>
+        <p className="mt-2 text-sm text-text-muted md:text-base">
+          {t("formSubtitle")}
+        </p>
+      </header>
+
       {showError && (
         <div
           className="mb-8 rounded-xl border border-red-200 bg-red-50 p-4 text-left"
@@ -200,6 +202,7 @@ export default function DevisForm({ locale }: DevisFormProps) {
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
+        {/* Anti-spam honeypot */}
         <div className="hidden" aria-hidden="true">
           <label htmlFor="website">{t("honeypotLabel")}</label>
           <input
@@ -211,89 +214,48 @@ export default function DevisForm({ locale }: DevisFormProps) {
           />
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          <Field
-            label={t("fields.nom")}
-            error={validationMessage(errors.nom?.message)}
-          >
-            <input
-              type="text"
-              autoComplete="family-name"
-              className={inputClass(!!errors.nom)}
-              {...register("nom")}
-            />
-          </Field>
-          <Field
-            label={t("fields.prenom")}
-            error={validationMessage(errors.prenom?.message)}
-          >
-            <input
-              type="text"
-              autoComplete="given-name"
-              className={inputClass(!!errors.prenom)}
-              {...register("prenom")}
-            />
-          </Field>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          <Field
-            label={t("fields.email")}
-            error={validationMessage(errors.email?.message)}
-          >
-            <input
-              type="email"
-              autoComplete="email"
-              className={inputClass(!!errors.email)}
-              {...register("email")}
-            />
-          </Field>
-          <Field
-            label={t("fields.telephone")}
-            error={validationMessage(errors.telephone?.message)}
-          >
-            <input
-              type="tel"
-              autoComplete="tel"
-              placeholder={t("placeholders.telephone")}
-              className={inputClass(!!errors.telephone)}
-              {...register("telephone")}
-            />
-          </Field>
-        </div>
-
+        {/* Name */}
         <Field
-          label={t("fields.productType")}
-          error={validationMessage(errors.productType?.message)}
-        >
-          <select
-            defaultValue=""
-            className={inputClass(!!errors.productType)}
-            {...register("productType")}
-          >
-            <option value="" disabled hidden>
-              {t("placeholders.productType")}
-            </option>
-            {PRODUCT_TYPES.map(({ value, labelKey }) => (
-              <option key={value} value={value}>
-                {t(`productTypes.${labelKey}`)}
-              </option>
-            ))}
-          </select>
-        </Field>
-
-        <Field
-          label={t("fields.dimensions")}
-          error={validationMessage(errors.dimensions?.message)}
+          label={t("fields.name")}
+          error={validationMessage(errors.name?.message)}
         >
           <input
             type="text"
-            placeholder={t("placeholders.dimensions")}
-            className={inputClass(!!errors.dimensions)}
-            {...register("dimensions")}
+            autoComplete="name"
+            placeholder={t("placeholders.name")}
+            className={inputClass(!!errors.name)}
+            {...register("name")}
           />
         </Field>
 
+        {/* Email */}
+        <Field
+          label={t("fields.email")}
+          error={validationMessage(errors.email?.message)}
+        >
+          <input
+            type="email"
+            autoComplete="email"
+            placeholder={t("placeholders.email")}
+            className={inputClass(!!errors.email)}
+            {...register("email")}
+          />
+        </Field>
+
+        {/* Message */}
+        <Field
+          label={t("fields.message")}
+          error={validationMessage(errors.message?.message)}
+        >
+          <textarea
+            rows={5}
+            placeholder={t("placeholders.message")}
+            className={inputClass(!!errors.message)}
+            {...register("message")}
+          />
+        </Field>
+
+        {/* File Attachment */}
         <Field
           label={t("fields.file")}
           hint={t("fields.fileHint")}

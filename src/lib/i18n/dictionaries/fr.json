@@ -183,5 +183,151 @@
       "fallback": "Pour toute urgence, vous pouvez nous joindre au :",
       "whatsapp": "Nous écrire sur WhatsApp"
     }
+  },
+  "contact": {
+    "meta": {
+      "title": "Contactez-nous | Marbrerie Tunis Carthage",
+      "description": "Prenez contact avec nos experts en marbre de luxe. Visitez notre usine à Carthage ou envoyez-nous un message."
+    },
+    "pageTitle": "Contactez-nous",
+    "pageIntro": "Notre équipe est à votre disposition pour vous conseiller et vous accompagner dans la réalisation de vos projets en marbre d'exception.",
+    "info": {
+      "title": "Nos Coordonnées",
+      "subtitle": "Atelier de transformation & showroom",
+      "addressLabel": "Adresse de l'usine",
+      "phoneLabel": "Téléphone",
+      "emailLabel": "E-mail",
+      "hoursTitle": "Horaires d'ouverture",
+      "whatsappCta": "Contactez-nous sur WhatsApp",
+      "whatsappDesc": "Assistance commerciale et devis direct",
+      "socialTitle": "Réseaux Sociaux",
+      "mapTitle": "Emplacement de l'usine"
+    },
+    "formTitle": "Envoyez-nous un message",
+    "formSubtitle": "Remplissez ce formulaire et nous vous répondrons sous 24h.",
+    "fields": {
+      "name": "Nom complet",
+      "email": "Adresse e-mail",
+      "message": "Votre message",
+      "file": "Pièce jointe (optionnel)",
+      "fileHint": "PDF, JPG ou PNG — 10 Mo maximum"
+    },
+    "placeholders": {
+      "name": "Ex. Mohamed Ben Salem",
+      "email": "Ex. contact@exemple.com",
+      "message": "Décrivez votre demande, vos besoins ou vos questions..."
+    },
+    "validation": {
+      "nameRequired": "Le nom est obligatoire.",
+      "emailInvalid": "Veuillez saisir une adresse e-mail valide.",
+      "messageRequired": "Le message est obligatoire.",
+      "fileTooLarge": "Le fichier ne doit pas dépasser 10 Mo.",
+      "fileTypeInvalid": "Formats acceptés : PDF, JPG, JPEG ou PNG."
+    },
+    "submit": "Envoyer le message",
+    "submitting": "Envoi en cours…",
+    "fileRemove": "Retirer",
+    "honeypotLabel": "Ne pas remplir",
+    "success": {
+      "title": "Message envoyé",
+      "message": "Merci pour votre message. Notre équipe commerciale vous répondra dans les plus brefs délais.",
+      "confirmationNote": "Un e-mail de confirmation vous a été envoyé à l'adresse indiquée."
+    },
+    "error": {
+      "title": "L'envoi n'a pas abouti",
+      "retry": "Réessayer",
+      "fallback": "Vous pouvez aussi nous joindre directement :",
+      "codes": {
+        "validation": "Certaines informations semblent incorrectes. Vérifiez le formulaire et réessayez.",
+        "file": "Le fichier joint n'est pas valide.",
+        "upload": "Le téléversement du fichier a échoué. Réessayez ou envoyez sans pièce jointe.",
+        "email": "L'envoi des e-mails a échoué. Veuillez réessayer dans quelques instants.",
+        "config": "Le service est temporairement indisponible. Contactez-nous par téléphone ou WhatsApp."
+      }
+    },
+    "emailUsine": {
+      "subject": "Nouveau message de contact — {name}",
+      "heading": "Nouveau message de contact",
+      "name": "Nom",
+      "email": "E-mail",
+      "message": "Message",
+      "fileLink": "Fichier joint :",
+      "noFile": "Aucun fichier joint."
+    },
+    "emailConfirm": {
+      "subject": "Confirmation de votre message | Marbrerie Tunis Carthage",
+      "greeting": "Bonjour {name},",
+      "body": "Nous avons bien reçu votre message. Notre équipe commerciale prend connaissance de votre demande et reviendra vers vous très prochainement.",
+      "fallback": "Pour toute urgence, vous pouvez nous joindre au :",
+      "whatsapp": "Nous écrire sur WhatsApp"
+    }
+  },
+  "apropos": {
+    "meta": {
+      "title": "À Propos | Marbrerie Tunis Carthage — Savoir-Faire & Excellence",
+      "description": "Découvrez l'histoire, les valeurs, les certifications et l'équipe d'artisans de Marbrerie Tunis Carthage. L'art de la pierre naturelle depuis 1989."
+    },
+    "intro": {
+      "kicker": "Depuis 1989",
+      "title": "Une histoire de passion et de savoir-faire",
+      "paragraph1": "Depuis plus de trois décennies, Marbrerie Tunis Carthage sublime les pierres naturelles les plus nobles de Tunisie et du bassin méditerranéen. De l'extraction en carrière jusqu'au polissage minutieux en atelier, chaque réalisation incarne un équilibre parfait entre tradition artisanale et innovation technologique.",
+      "paragraph2": "Nous accompagnons architectes, décorateurs et particuliers exigeants dans la concrétisation de leurs projets les plus ambitieux, en façonnant le marbre, le granit et le travertin avec une précision d'orfèvre."
+    },
+    "histoire": {
+      "kicker": "Notre Parcours",
+      "title": "Les grandes étapes de notre maison",
+      "prevAria": "Étape précédente",
+      "nextAria": "Étape suivante",
+      "stepIndicator": "Étape {current} sur {total}"
+    },
+    "valeurs": {
+      "kicker": "Nos Valeurs",
+      "title": "Les principes qui guident notre geste"
+    },
+    "certifications": {
+      "kicker": "Nos Certifications",
+      "title": "Normes & Exigences Internationales"
+    },
+    "equipe": {
+      "kicker": "Notre Équipe",
+      "title": "Les artisans de votre vision"
+    },
+    "coordonnees": {
+      "kicker": "Contact & Visite",
+      "title": "Donnez vie à vos projets d'exception",
+      "description": "Nos conseillers et maîtres marbriers sont à votre écoute pour étudier vos plans, vous présenter nos échantillons et vous accompagner dans chaque étape de réalisation.",
+      "addressLabel": "Atelier & Showroom",
+      "phoneLabel": "Téléphone direct",
+      "emailLabel": "Courrier électronique",
+      "hoursLabel": "Horaires d'ouverture",
+      "ctaContact": "Nous contacter",
+      "ctaWhatsApp": "Échanger sur WhatsApp"
+    }
+  },
+  "catalogue": {
+    "meta": {
+      "title": "Catalogue Interactif | Marbrerie Tunis Carthage",
+      "description": "Feuilletez notre catalogue interactif en ligne. Découvrez notre gamme complète de marbres, granits et travertins d'exception."
+    },
+    "kicker": "Collection Exclusive",
+    "title": "Notre Catalogue",
+    "subtitle": "Feuilletez notre collection de pierres d'exception au fil des pages. Découvrez nos marbres, granits et finitions artisanales.",
+    "instructions": "Cliquez sur les coins ou glissez pour tourner les pages",
+    "prevPage": "Page précédente",
+    "nextPage": "Page suivante",
+    "pageIndicator": "Page {current} sur {total}",
+    "loading": "Chargement du catalogue...",
+    "loadingProgress": "Chargement des pages...",
+    "soundOn": "Son activé",
+    "soundOff": "Son désactivé",
+    "downloadPdf": "Télécharger le PDF",
+    "fullscreen": "Plein écran",
+    "exitFullscreen": "Quitter plein écran",
+    "zoomIn": "Agrandir",
+    "zoomOut": "Réduire",
+    "fitWidth": "Ajuster la taille",
+    "coverFront": "Couverture",
+    "coverBack": "Quatrième de couverture"
   }
 }
+

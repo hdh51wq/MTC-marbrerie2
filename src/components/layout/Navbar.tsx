@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "@/lib/i18n/routing";
@@ -9,7 +10,7 @@ import { siteConfig } from "@/data/siteConfig";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 const navItems = [
-  { key: "accueil", href: "#accueil" },
+  { key: "accueil", href: "/" },
   { key: "apropos", href: "/a-propos" },
   { key: "usine", href: "#usine" },
   { key: "produits", href: "#produits" },
@@ -19,8 +20,33 @@ const navItems = [
   { key: "contact", href: "/contact" },
 ] as const;
 
+const blackAtTopRoutes = ["/devis", "/contact", "/a-propos", "/catalogue"];
+
 export default function Navbar() {
   const t = useTranslations("nav");
+  const pathname = usePathname();
+  const isHomePage =
+    !pathname ||
+    pathname === "/" ||
+    pathname === "/fr" ||
+    pathname === "/en" ||
+    pathname === "/fr/" ||
+    pathname === "/en/";
+  const isCataloguePage = Boolean(
+    pathname &&
+      (pathname === "/catalogue" ||
+        pathname.endsWith("/catalogue") ||
+        pathname.endsWith("/catalogue/")),
+  );
+  const useBlackAtTop = Boolean(
+    pathname &&
+      blackAtTopRoutes.some(
+        (route) =>
+          pathname === route ||
+          pathname.endsWith(route) ||
+          pathname.endsWith(`${route}/`),
+      ),
+  );
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -38,9 +64,54 @@ export default function Navbar() {
     };
   }, [mobileOpen]);
 
-  const navLinkClass = scrolled
-    ? "text-brand-dark/80 hover:text-brand-orange"
-    : "text-white/90 hover:text-brand-orange";
+  const navLinkClass =
+    scrolled || useBlackAtTop
+      ? "text-brand-dark/80 hover:text-brand-orange"
+      : "text-white/90 hover:text-brand-orange";
+
+  const brandTextColor =
+    scrolled || useBlackAtTop ? "text-black" : "text-brand-orange";
+
+  if (isCataloguePage) {
+    return (
+      <header
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-white/95 shadow-md backdrop-blur-md"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-6 lg:px-8">
+          <Link href="/" className="flex min-w-0 items-center gap-3">
+            <Image
+              src={siteConfig.assets.logo}
+              alt={siteConfig.name}
+              width={48}
+              height={48}
+              className={`h-10 w-auto shrink-0 md:h-12 ${scrolled || useBlackAtTop ? "" : "brightness-0 invert"}`}
+              priority
+            />
+            <div className="min-w-0">
+              <p
+                className={`flex min-w-0 flex-wrap items-baseline gap-x-2 font-display text-xs font-bold tracking-widest transition-colors md:text-sm ${brandTextColor}`}
+              >
+                <span className="truncate">MARBRERIE TUNIS CARTHAGE</span>
+                <span className="shrink-0 text-[0.7em] font-semibold tracking-wide">
+                  Since 1989
+                </span>
+              </p>
+              <p
+                className={`truncate font-arabic text-xs transition-colors md:text-sm ${brandTextColor}`}
+                dir="rtl"
+              >
+                {siteConfig.nameArabic}
+              </p>
+            </div>
+          </Link>
+        </div>
+      </header>
+    );
+  }
 
   return (
     <>
@@ -52,18 +123,18 @@ export default function Navbar() {
         }`}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-6 lg:px-8">
-          <a href="#accueil" className="flex min-w-0 items-center gap-3">
+          <Link href="/" className="flex min-w-0 items-center gap-3">
             <Image
               src={siteConfig.assets.logo}
               alt={siteConfig.name}
               width={48}
               height={48}
-              className={`h-10 w-auto shrink-0 md:h-12 ${scrolled ? "" : "brightness-0 invert"}`}
+              className={`h-10 w-auto shrink-0 md:h-12 ${scrolled || useBlackAtTop ? "" : "brightness-0 invert"}`}
               priority
             />
             <div className="hidden min-w-0 sm:block">
               <p
-                className={`flex min-w-0 flex-wrap items-baseline gap-x-2 font-display text-xs font-bold tracking-widest transition-colors md:text-sm ${scrolled ? "text-black" : "text-brand-orange"}`}
+                className={`flex min-w-0 flex-wrap items-baseline gap-x-2 font-display text-xs font-bold tracking-widest transition-colors md:text-sm ${brandTextColor}`}
               >
                 <span className="truncate">MARBRERIE TUNIS CARTHAGE</span>
                 <span className="shrink-0 text-[0.7em] font-semibold tracking-wide">
@@ -71,24 +142,34 @@ export default function Navbar() {
                 </span>
               </p>
               <p
-                className={`truncate font-arabic text-xs transition-colors md:text-sm ${scrolled ? "text-black" : "text-brand-orange"}`}
+                className={`truncate font-arabic text-xs transition-colors md:text-sm ${brandTextColor}`}
                 dir="rtl"
               >
                 {siteConfig.nameArabic}
               </p>
             </div>
-          </a>
+          </Link>
 
           <nav className="hidden items-center gap-5 xl:flex" aria-label="Main">
             {navItems.map((item) =>
               item.href.startsWith("#") ? (
-                <a
-                  key={item.key}
-                  href={item.href}
-                  className={`text-sm font-semibold transition-colors ${navLinkClass}`}
-                >
-                  {t(item.key)}
-                </a>
+                isHomePage ? (
+                  <a
+                    key={item.key}
+                    href={item.href}
+                    className={`text-sm font-semibold transition-colors ${navLinkClass}`}
+                  >
+                    {t(item.key)}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.key}
+                    href={`/${item.href}`}
+                    className={`text-sm font-semibold transition-colors ${navLinkClass}`}
+                  >
+                    {t(item.key)}
+                  </Link>
+                )
               ) : (
                 <Link
                   key={item.key}
@@ -117,13 +198,13 @@ export default function Navbar() {
               aria-expanded={mobileOpen}
             >
               <span
-                className={`block h-0.5 w-6 transition-all ${scrolled || mobileOpen ? "bg-brand-dark" : "bg-white"} ${mobileOpen ? "translate-y-2 rotate-45" : ""}`}
+                className={`block h-0.5 w-6 transition-all ${scrolled || mobileOpen || useBlackAtTop ? "bg-brand-dark" : "bg-white"} ${mobileOpen ? "translate-y-2 rotate-45" : ""}`}
               />
               <span
-                className={`block h-0.5 w-6 transition-all ${scrolled || mobileOpen ? "bg-brand-dark" : "bg-white"} ${mobileOpen ? "opacity-0" : ""}`}
+                className={`block h-0.5 w-6 transition-all ${scrolled || mobileOpen || useBlackAtTop ? "bg-brand-dark" : "bg-white"} ${mobileOpen ? "opacity-0" : ""}`}
               />
               <span
-                className={`block h-0.5 w-6 transition-all ${scrolled || mobileOpen ? "bg-brand-dark" : "bg-white"} ${mobileOpen ? "-translate-y-2 -rotate-45" : ""}`}
+                className={`block h-0.5 w-6 transition-all ${scrolled || mobileOpen || useBlackAtTop ? "bg-brand-dark" : "bg-white"} ${mobileOpen ? "-translate-y-2 -rotate-45" : ""}`}
               />
             </button>
           </div>
@@ -156,13 +237,23 @@ export default function Navbar() {
                   transition={{ delay: i * 0.05 }}
                 >
                   {item.href.startsWith("#") ? (
-                    <a
-                      href={item.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="block border-b border-white/10 py-4 text-lg text-white hover:text-brand-orange"
-                    >
-                      {t(item.key)}
-                    </a>
+                    isHomePage ? (
+                      <a
+                        href={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="block border-b border-white/10 py-4 text-lg text-white hover:text-brand-orange"
+                      >
+                        {t(item.key)}
+                      </a>
+                    ) : (
+                      <Link
+                        href={`/${item.href}`}
+                        onClick={() => setMobileOpen(false)}
+                        className="block border-b border-white/10 py-4 text-lg text-white hover:text-brand-orange"
+                      >
+                        {t(item.key)}
+                      </Link>
+                    )
                   ) : (
                     <Link
                       href={item.href}

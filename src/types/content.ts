@@ -6,6 +6,11 @@ export function localized(text: LocalizedText, locale: Locale): string {
   return text[locale];
 }
 
+export interface BusinessHoursEntry {
+  day: LocalizedText;
+  hours: LocalizedText | string;
+}
+
 export interface SiteConfig {
   name: string;
   nameArabic: string;
@@ -23,6 +28,8 @@ export interface SiteConfig {
     youtube: string;
     linkedin: string;
   };
+  hours: BusinessHoursEntry[];
+  hoursNote?: LocalizedText;
   assets: {
     logo: string;
     productsSectionBackground: string;
