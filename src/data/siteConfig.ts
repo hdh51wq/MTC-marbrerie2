@@ -17,7 +17,7 @@ export const siteConfig: SiteConfig = {
     facebook: "https://www.facebook.com/people/Marbrerie-Tunis-Carthage/100064855083718/",
     instagram: "https://www.instagram.com/marbrerie_tunis_carthage/",
     youtube: "https://www.youtube.com/user/MTCarthage",
-    linkedin: "https://www.youtube.com/user/MTCarthage",
+    linkedin: "https://www.linkedin.com/company/marbrerie-tunis-carthage",
   },
   // SWAP: Replace placeholder hours with client's confirmed opening hours
   hours: [

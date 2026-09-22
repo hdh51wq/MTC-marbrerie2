@@ -81,27 +81,27 @@ export default function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-6 lg:px-8">
-          <Link href="/" className="flex min-w-0 items-center gap-3">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-2.5 sm:px-6 sm:py-3 lg:px-8">
+          <Link href="/" className="flex min-w-0 items-center gap-2 sm:gap-3">
             <Image
               src={siteConfig.assets.logo}
               alt={siteConfig.name}
               width={48}
               height={48}
-              className={`h-10 w-auto shrink-0 md:h-12 ${scrolled || useBlackAtTop ? "" : "brightness-0 invert"}`}
+              className={`h-9 w-auto shrink-0 sm:h-10 md:h-12 ${scrolled || useBlackAtTop ? "" : "brightness-0 invert"}`}
               priority
             />
             <div className="min-w-0">
               <p
-                className={`flex min-w-0 flex-wrap items-baseline gap-x-2 font-display text-xs font-bold tracking-widest transition-colors md:text-sm ${brandTextColor}`}
+                className={`flex min-w-0 flex-wrap items-baseline gap-x-1.5 font-display text-[10px] font-bold tracking-wider transition-colors sm:text-xs md:text-sm md:gap-x-2 md:tracking-widest ${brandTextColor}`}
               >
                 <span className="truncate">MARBRERIE TUNIS CARTHAGE</span>
-                <span className="shrink-0 text-[0.7em] font-semibold tracking-wide">
+                <span className="shrink-0 text-[0.75em] font-semibold tracking-normal sm:tracking-wide">
                   Since 1989
                 </span>
               </p>
               <p
-                className={`truncate font-arabic text-xs transition-colors md:text-sm ${brandTextColor}`}
+                className={`truncate font-arabic text-[10px] transition-colors sm:text-xs md:text-sm ${brandTextColor}`}
                 dir="rtl"
               >
                 {siteConfig.nameArabic}
@@ -122,27 +122,27 @@ export default function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-6 lg:px-8">
-          <Link href="/" className="flex min-w-0 items-center gap-3">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2.5 px-3 py-2.5 sm:gap-4 sm:px-6 sm:py-3 lg:px-8">
+          <Link href="/" className="flex min-w-0 items-center gap-2 sm:gap-3">
             <Image
               src={siteConfig.assets.logo}
               alt={siteConfig.name}
               width={48}
               height={48}
-              className={`h-10 w-auto shrink-0 md:h-12 ${scrolled || useBlackAtTop ? "" : "brightness-0 invert"}`}
+              className={`h-9 w-auto shrink-0 sm:h-10 md:h-12 ${scrolled || useBlackAtTop ? "" : "brightness-0 invert"}`}
               priority
             />
-            <div className="hidden min-w-0 sm:block">
+            <div className="min-w-0">
               <p
-                className={`flex min-w-0 flex-wrap items-baseline gap-x-2 font-display text-xs font-bold tracking-widest transition-colors md:text-sm ${brandTextColor}`}
+                className={`flex min-w-0 flex-wrap items-baseline gap-x-1.5 font-display text-[10px] font-bold tracking-wider transition-colors sm:text-xs md:text-sm md:gap-x-2 md:tracking-widest ${brandTextColor}`}
               >
                 <span className="truncate">MARBRERIE TUNIS CARTHAGE</span>
-                <span className="shrink-0 text-[0.7em] font-semibold tracking-wide">
+                <span className="shrink-0 text-[0.75em] font-semibold tracking-normal sm:tracking-wide">
                   Since 1989
                 </span>
               </p>
               <p
-                className={`truncate font-arabic text-xs transition-colors md:text-sm ${brandTextColor}`}
+                className={`truncate font-arabic text-[10px] transition-colors sm:text-xs md:text-sm ${brandTextColor}`}
                 dir="rtl"
               >
                 {siteConfig.nameArabic}
@@ -182,7 +182,7 @@ export default function Navbar() {
             )}
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <LanguageSwitcher />
             <Link
               href="/catalogue"
@@ -192,7 +192,7 @@ export default function Navbar() {
             </Link>
             <button
               type="button"
-              className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 xl:hidden"
+              className="relative z-50 flex h-9 w-9 sm:h-10 sm:w-10 flex-col items-center justify-center gap-1.5 xl:hidden"
               onClick={() => setMobileOpen((v) => !v)}
               aria-label={mobileOpen ? t("menuClose") : t("menuOpen")}
               aria-expanded={mobileOpen}

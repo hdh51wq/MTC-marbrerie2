@@ -18,6 +18,43 @@ type FlipBookProps = {
   pdfUrl?: string;
 };
 
+function getInitialDimensions() {
+  if (typeof window === "undefined") {
+    return { width: 440, height: 620, isMobile: false };
+  }
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+
+  if (screenWidth < 640) {
+    const w = Math.min(Math.floor(screenWidth * 0.88), 380);
+    const maxH = Math.max(screenHeight - 200, 320);
+    const h = Math.min(Math.round(w * 1.414), maxH);
+    return { width: Math.max(w, 240), height: Math.max(h, 340), isMobile: true };
+  } else if (screenWidth < 1024) {
+    const targetSpread = Math.floor(screenWidth * 0.72);
+    const targetW = Math.floor(targetSpread / 2);
+    const maxH = Math.max(screenHeight - 220, 400);
+    let h = Math.round(targetW * 1.414);
+    let w = targetW;
+    if (h > maxH) {
+      h = maxH;
+      w = Math.round(h / 1.414);
+    }
+    return { width: Math.min(w, 420), height: h, isMobile: false };
+  } else {
+    const targetSpread = Math.min(Math.floor(screenWidth * 0.70), 1260);
+    const targetW = Math.floor(targetSpread / 2);
+    const maxH = Math.max(screenHeight - 220, 500);
+    let h = Math.round(targetW * 1.414);
+    let w = targetW;
+    if (h > maxH) {
+      h = Math.min(maxH, 820);
+      w = Math.round(h / 1.414);
+    }
+    return { width: Math.min(w, 630), height: Math.min(h, 820), isMobile: false };
+  }
+}
+
 export default function FlipBook({ pdfUrl = "/catalogue.pdf" }: FlipBookProps) {
   const t = useTranslations("catalogue");
 
@@ -32,11 +69,7 @@ export default function FlipBook({ pdfUrl = "/catalogue.pdf" }: FlipBookProps) {
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [zoomScale, setZoomScale] = useState<number>(1);
-  const [bookDimensions, setBookDimensions] = useState({
-    width: 440,
-    height: 620,
-    isMobile: false,
-  });
+  const [bookDimensions, setBookDimensions] = useState(getInitialDimensions);
 
   // Refs
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -111,42 +144,7 @@ export default function FlipBook({ pdfUrl = "/catalogue.pdf" }: FlipBookProps) {
 
   // Responsive Book Sizing targeting ~70% available page width
   const updateDimensions = useCallback(() => {
-    if (typeof window === "undefined") return;
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-
-    // Aspect ratio of standard catalogue page ~ 1 : 1.414 (A4)
-    if (screenWidth < 640) {
-      // Mobile Single Page (~85-90% screen width)
-      const w = Math.min(Math.floor(screenWidth * 0.88), 380);
-      const maxH = screenHeight - 200;
-      const h = Math.min(Math.round(w * 1.414), maxH);
-      setBookDimensions({ width: w, height: h, isMobile: true });
-    } else if (screenWidth < 1024) {
-      // Tablet Dual Page (~72% screen width spread)
-      const targetSpread = Math.floor(screenWidth * 0.72);
-      const targetW = Math.floor(targetSpread / 2);
-      const maxH = screenHeight - 220;
-      let h = Math.round(targetW * 1.414);
-      let w = targetW;
-      if (h > maxH) {
-        h = maxH;
-        w = Math.round(h / 1.414);
-      }
-      setBookDimensions({ width: Math.min(w, 420), height: h, isMobile: false });
-    } else {
-      // Desktop Luxury Spread (~70% screen width spread)
-      const targetSpread = Math.min(Math.floor(screenWidth * 0.70), 1260);
-      const targetW = Math.floor(targetSpread / 2);
-      const maxH = screenHeight - 220;
-      let h = Math.round(targetW * 1.414);
-      let w = targetW;
-      if (h > maxH) {
-        h = Math.min(maxH, 820);
-        w = Math.round(h / 1.414);
-      }
-      setBookDimensions({ width: Math.min(w, 630), height: Math.min(h, 820), isMobile: false });
-    }
+    setBookDimensions(getInitialDimensions());
   }, []);
 
   useEffect(() => {
@@ -327,14 +325,15 @@ export default function FlipBook({ pdfUrl = "/catalogue.pdf" }: FlipBookProps) {
 
             {/* StPageFlip HTMLFlipBook Component */}
             <HTMLFlipBook
+              key={`flipbook-${bookDimensions.isMobile ? "mobile" : "desktop"}-${bookDimensions.width}`}
               ref={flipBookRef}
               width={bookDimensions.width}
               height={bookDimensions.height}
-              size="stretch"
-              minWidth={260}
-              maxWidth={660}
-              minHeight={360}
-              maxHeight={880}
+              size={bookDimensions.isMobile ? "fixed" : "stretch"}
+              minWidth={bookDimensions.isMobile ? 180 : 260}
+              maxWidth={bookDimensions.isMobile ? 420 : 660}
+              minHeight={bookDimensions.isMobile ? 260 : 360}
+              maxHeight={bookDimensions.isMobile ? 640 : 880}
               maxShadowOpacity={0.45}
               showCover={true}
               mobileScrollSupport={true}
@@ -346,11 +345,11 @@ export default function FlipBook({ pdfUrl = "/catalogue.pdf" }: FlipBookProps) {
               drawShadow={true}
               flippingTime={700}
               startZIndex={0}
-              autoSize={true}
+              autoSize={!bookDimensions.isMobile}
               clickEventForward={true}
               useMouseEvents={true}
               swipeDistance={30}
-              showPageCorners={true}
+              showPageCorners={!bookDimensions.isMobile}
               disableFlipByClick={false}
             >
               {Array.from({ length: numPages }, (_, index) => {

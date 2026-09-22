@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { BookOpen, Sparkles } from "lucide-react";
+import CatalogueErrorBoundary from "./CatalogueErrorBoundary";
 
 // Dynamic import with ssr: false to prevent SSR canvas and DOM reference issues
 const FlipBook = dynamic(() => import("./FlipBook"), {
@@ -34,7 +35,9 @@ type CatalogueViewerProps = {
 export default function CatalogueViewer({ pdfUrl = "/catalogue.pdf" }: CatalogueViewerProps) {
   return (
     <div className="w-full">
-      <FlipBook pdfUrl={pdfUrl} />
+      <CatalogueErrorBoundary pdfUrl={pdfUrl}>
+        <FlipBook pdfUrl={pdfUrl} />
+      </CatalogueErrorBoundary>
     </div>
   );
 }
